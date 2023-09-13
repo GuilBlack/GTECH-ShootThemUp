@@ -8,6 +8,7 @@ public:
 	virtual void OnUpdate(float deltaTime);
 	virtual void OnRender(std::unique_ptr<sf::RenderWindow>& window);
 	virtual void OnDestroy() {}
+	virtual void IncreaseScore() {}
 	virtual void HandleInput(sf::Event event) {}
 	virtual void TestCollision(Entity* entity);
 

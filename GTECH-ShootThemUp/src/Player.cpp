@@ -6,13 +6,23 @@ void Player::OnInit(sf::Vector2f position, bool isFriendly)
 {
 	Entity::OnInit(position, isFriendly);
 	m_Health = 20;
-	m_HealthBar.setSize(sf::Vector2f(m_Health * 5.f, 10.f));
-	m_HealthBar.setPosition(sf::Vector2f(5.f, 5.f));
 	m_Color = sf::Color::Magenta;
 	m_Radius = 15.f;
 	m_Speed = Game::GetGame().GetWindow()->getSize().x / 2.f;
 	m_Direction = sf::Vector2f(0.f, 0.f);
 	m_IsFriendly = true;
+
+	m_HealthBar.setSize(sf::Vector2f(m_Health * 5.f, 10.f));
+	m_HealthBar.setPosition(sf::Vector2f(5.f, 5.f));
+	sf::Font font;
+	if (!font.loadFromFile("res/arial.ttf"))
+	{
+		DBOUT("Error loading font\n");
+	}
+	//m_ScoreDisplay.setFont(font);
+	m_ScoreDisplay.setCharacterSize(30);
+	m_ScoreDisplay.setPosition(Game::GetGame().GetWindow()->getSize().x - 100.f, 5.f);
+	m_ScoreDisplay.setFillColor(sf::Color::White);
 }
 
 
@@ -89,4 +99,6 @@ void Player::OnRender(std::unique_ptr<sf::RenderWindow>& window)
 	m_HealthBar.setSize(sf::Vector2f(m_Health * 10.f, 15.f));
 	m_HealthBar.setFillColor(sf::Color::Green); 
 	window->draw(m_HealthBar);
+	m_ScoreDisplay.setString(std::to_string(m_KillCouns));
+	window->draw(m_ScoreDisplay);
 }

@@ -9,9 +9,12 @@ public:
 	virtual void OnUpdate(float deltaTime) override;
 	virtual bool IsPlayer() override { return true; }
 	virtual void OnRender(std::unique_ptr<sf::RenderWindow>& window) override;
+	virtual void IncreaseScore() override { ++m_KillCouns; }
 
 private:
 	float m_ShootTimer = 0.f;
+	int m_KillCouns = 0;
 	sf::RectangleShape m_HealthBar = sf::RectangleShape();
+	sf::Text m_ScoreDisplay = sf::Text();
 };
 

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Entity.h"
 #include "Game.h"
+#include "Player.h"
 
 sf::CircleShape Entity::m_RenderBody = sf::CircleShape();
 
@@ -27,6 +28,8 @@ void Entity::OnRender(std::unique_ptr<sf::RenderWindow>& window)
 
 void Entity::TestCollision(Entity* entity)
 {
+	if (IsDead() || entity->IsDead())
+		return;
 	sf::Vector2f thisCenter = sf::Vector2f(m_Position.x + m_Radius, m_Position.y + m_Radius);
 	sf::Vector2f otherCenter = sf::Vector2f(entity->m_Position.x + m_Radius, entity->m_Position.y + m_Radius);
 
@@ -35,6 +38,8 @@ void Entity::TestCollision(Entity* entity)
 	{
 		DecreaseHealth();
 		entity->DecreaseHealth();
+		if (IsEnemy())
+			Game::GetGame().GetEntityManager()->GetPlayer()->IncreaseScore();
 	}
 }
 

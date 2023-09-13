@@ -8,6 +8,10 @@ void Enemy::OnInit(sf::Vector2f position, bool isFriendly)
 	m_Health = 1;
 	m_Color = sf::Color::Yellow;
 	m_Radius = 15.f;
+	if (rand() % 2)
+		m_Direction.x = -1.f;
+	else
+		m_Direction.x = 1.f;
 	m_Speed = Game::GetGame().GetWindow()->getSize().x / (float)10.f;
 }
 
